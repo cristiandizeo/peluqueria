@@ -2,6 +2,10 @@
 
 <p class="descripcion-pagina">Iniciá sesión con tus datos</p>
 
+<?php
+include_once __DIR__ . "/../templates/alertas.php";
+?>
+
 <form action="/" class="formulario" method="POST">
     <div class="campo">
         <label for="email">Email</label>
@@ -10,6 +14,7 @@
             id="email"
             placeholder="Tu email"
             name="email"
+            value="<?php echo s($auth->email);?>"
         />
     </div>
     <div class="campo">
