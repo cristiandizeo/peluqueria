@@ -2,7 +2,8 @@
 
 namespace Model;
 
-class Usuario extends ActiveRecord{
+class Usuario extends ActiveRecord
+{
     //Base de datos
     protected static $tabla = 'usuarios';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'telefono', 'admin', 'confirmado', 'token'];
@@ -31,23 +32,24 @@ class Usuario extends ActiveRecord{
     }
 
     //Mensajes de validacion para crear cuenta
-    public function validarNuevaCuenta(){
-        if(!$this->nombre){
+    public function validarNuevaCuenta()
+    {
+        if (!$this->nombre) {
             self::$alertas['error'][] = "El nombre es obligatorio";
         }
-        if(!$this->apellido){
+        if (!$this->apellido) {
             self::$alertas['error'][] = "El apellido es obligatorio";
         }
-        if(!$this->telefono){
+        if (!$this->telefono) {
             self::$alertas['error'][] = "El telefono es obligatorio";
         }
-        if(!$this->email){
+        if (!$this->email) {
             self::$alertas['error'][] = "El email es obligatorio";
         }
-        if(!$this->password){
+        if (!$this->password) {
             self::$alertas['error'][] = "El password es obligatorio";
         }
-        if(strlen($this->password) < 8){
+        if (strlen($this->password) < 8) {
             self::$alertas['error'][] = "El password debe contener al menos 8 caracteres";
         }
         return self::$alertas;
@@ -55,10 +57,10 @@ class Usuario extends ActiveRecord{
 
     public function validarLogin()
     {
-        if(!$this->email){
+        if (!$this->email) {
             self::$alertas['error'][] = 'El email es obligatorio';
         }
-        if(!$this->password){
+        if (!$this->password) {
             self::$alertas['error'][] = 'El password es obligatorio';
         }
 
@@ -66,33 +68,36 @@ class Usuario extends ActiveRecord{
     }
 
     //Revisar si el usuario ya existe
-    public function existeUsuario(){
+    public function existeUsuario()
+    {
         $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
         $resultado = self::$db->query($query);
 
-        if($resultado->num_rows){
+        if ($resultado->num_rows) {
             self::$alertas['error'][] = 'El usuario ya esta registrado';
         }
 
         return $resultado;
     }
 
-    public function hashPassword(){
+    public function hashPassword()
+    {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
-
     }
 
-    public function crearToken(){
+    public function crearToken()
+    {
         $this->token = uniqid();
     }
 
-    public function comprobarPassAndVerificado($password){
+    public function comprobarPassAndVerificado($password)
+    {
         $resultado = password_verify($password, $this->password);
 
-        if(!$this->confirmado){
-            debuguear('El usuario NO esta confirmado');
+        if (!$resultado || !$this->confirmado) {
+            self::$alertas['error'][] = "Password incorrecto o cuenta no confirmada";
         } else {
-            debuguear('El usuario ya esta confirmado');
+            return true;
         }
     }
 }
