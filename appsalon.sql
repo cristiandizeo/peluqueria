@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-02-2022 a las 17:26:17
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.12
+-- Tiempo de generación: 01-03-2022 a las 00:57:17
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,11 +86,22 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(60) NOT NULL,
   `apellido` varchar(60) NOT NULL,
   `email` varchar(30) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `telefono` varchar(15) NOT NULL,
   `admin` tinyint(1) NOT NULL,
   `confirmado` tinyint(1) NOT NULL,
   `token` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `email`, `password`, `telefono`, `admin`, `confirmado`, `token`) VALUES
+(2, ' Luisina', 'Lopez', 'asdadasd@asda.com', '$2y$10$dFTodCtD9KOKni1fTXlcOOU1R5glrOs09P3ay8fozMAccT7PJigF6', '324902340', 0, 1, ''),
+(3, ' Mica', 'Lope', 'asldkjadlk@adaskld.com', '$2y$10$2mMQ7Xnub7zqzTWsEhngVuEKx/9zkVo5YlYuuClzEZwQVmVkEnCNK', '0324923489', 0, 1, ''),
+(4, ' asd', 'dsa', 'asdasd@asd.com', '$2y$10$ffkI8dBrB7Wrd7GWF5DDLOHaX9ymazQe74yLpnhbuWrNX19RPjuYy', '765654687687', 0, 1, ''),
+(5, ' Matias', 'Gonzalez', 'matias@net.com', '$2y$10$5NtWxA.cJiMl.hqA5L/sFONKLRc1Ssnl8pAldt2J0YqGlB3QskiPO', '45646789789', 0, 1, '');
 
 --
 -- Índices para tablas volcadas
@@ -149,7 +160,7 @@ ALTER TABLE `servicios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
