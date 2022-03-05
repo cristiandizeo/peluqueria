@@ -65,14 +65,14 @@ class LoginController
     {
         $alertas = [];
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Usuario($_POST);
             $alertas = $auth->validarEmail();
-            
-            if(empty($alertas)){
+
+            if (empty($alertas)) {
                 $usuario = Usuario::where('email', $auth->email);
 
-                if($usuario && $usuario->confirmado === '1'){
+                if ($usuario && $usuario->confirmado === '1') {
                     //generar token
                     $usuario->crearToken();
                     $usuario->guardar();
@@ -83,7 +83,7 @@ class LoginController
 
                     //alerta exito
                     Usuario::setAlerta('exito', 'Revisa tu email');
-                }else{
+                } else {
                     //alerta error
                     Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
                 }
@@ -107,17 +107,17 @@ class LoginController
         //Buscar usuario por el token
         $usuario = Usuario::where('token', $token);
 
-        if(empty($usuario)){
+        if (empty($usuario)) {
             Usuario::setAlerta('error', 'Token no válido');
             $error = true;
         }
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //Leer el nuevo password y actualizarlo
             $password = new Usuario($_POST);
             $alertas = $password->validarPassword();
 
-            if(empty($alertas)){
+            if (empty($alertas)) {
                 $usuario->password = null;
 
                 $usuario->password = $password->password;
@@ -125,14 +125,14 @@ class LoginController
                 $usuario->token = null;
 
                 $resultado = $usuario->guardar();
-                if($resultado){
+                if ($resultado) {
                     header('Location: /');
                 }
             }
         }
 
         $alertas = Usuario::getAlertas();
-        $router->render('auth/recuperar-password',[
+        $router->render('auth/recuperar-password', [
             'alertas' => $alertas,
             'error' => $error
         ]);
