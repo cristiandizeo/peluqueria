@@ -1,0 +1,1 @@
+let paso=1;function iniciarApp(){tabs()}function tabs(){document.querySelectorAll(".tabs button").forEach(n=>{n.addEventListener("click",(function(){console.log("Click")}))})}document.addEventListener("DOMContentLoaded",(function(){iniciarApp()}));
