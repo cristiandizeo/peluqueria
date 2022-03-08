@@ -2,6 +2,13 @@ let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
 
+const cita = {
+  nombre: '',
+  fecha: '',
+  hora: '',
+  servicios: []
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   iniciarApp();
 });
@@ -12,6 +19,11 @@ function iniciarApp() {
   botonesPaginador(); // Agrega o quita botones paginador
   paginaSiguiente();
   paginaAnterior();
+
+  consultarAPI(); // Consulta API en el backend
+
+  nombreCliente(); // Añade nombre de cliente a la cita
+  seleccionarFecha(); // Añade la fecha de la cita
 }
 
 function mostrarSeccion() {
@@ -85,4 +97,94 @@ function paginaSiguiente() {
 
     botonesPaginador();
   });
+}
+
+async function consultarAPI(){
+  try{
+    const url = 'http://localhost:3000/api/servicios';
+    const resultado = await fetch(url);
+    const servicios = await resultado.json();
+mostrarServicios(servicios);
+
+  } catch (error){
+    console.log(error);
+  }
+}
+
+function mostrarServicios(servicios) {
+  servicios.forEach(servicio =>{
+    const {id, nombre, precio} = servicio;
+    
+    const nombreServicio = document.createElement('P');
+    nombreServicio.classList.add('nombre-servicio');
+    nombreServicio.textContent = nombre;
+
+    
+    const precioServicio = document.createElement('P');
+    precioServicio.classList.add('precio-servicio');
+    precioServicio.textContent = `$${precio}`;
+
+    const servicioDiv = document.createElement('DIV');
+    servicioDiv.classList.add('servicio');
+    servicioDiv.dataset.idServicio = id;
+    servicioDiv.onclick = function() {
+      seleccionarServicio(servicio);
+    };
+
+    servicioDiv.appendChild(nombreServicio);
+    servicioDiv.appendChild(precioServicio);
+
+    document.querySelector('#servicios').appendChild(servicioDiv);
+
+  })
+}
+
+function seleccionarServicio(servicio){
+  const {id} = servicio; // Extraigo 'id' del obj servicio
+  const {servicios} = cita; // Extraigo 'servicios' del obj cita
+
+  // Identificar elemento al que se da click
+  const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
+
+  // Comprobar si un servicio ya fue seleccionado
+  if( servicios.some(agregado => agregado.id === id) ){
+    // Eliminarlo
+    cita.servicios = servicios.filter( agregado => agregado.id !== id);
+    divServicio.classList.remove('seleccionado');
+
+  } else {
+    // Agregarlo
+    cita.servicios = [...servicios, servicio]; // Tomo una copia de 'servicios' y le agrego un nuevo servicio
+    divServicio.classList.add('seleccionado');
+    console.log(cita)
+  }
+
+}
+
+function nombreCliente(){
+  cita.nombre = document.querySelector('#nombre').value;
+}
+
+function seleccionarFecha() {
+  const inputFecha = document.querySelector('#fecha');
+  inputFecha.addEventListener('input', function(e){
+    const dia = new Date(e.target.value).getUTCDay();
+
+    if([6, 0].includes(dia)){
+      e.target.value = '';
+      mostrarAlerta('Sabados y domingo cerrado', 'error');
+    } else {
+      cita.fecha = e.target.value;
+    }
+  })
+}
+
+function mostrarAlerta(mensaje, tipo){
+  const alerta = document.createElement('DIV');
+  alerta.textContent = mensaje;
+  alerta.classList.add('alerta');
+  alerta.classList.add(tipo);
+
+  const formulario = document.querySelector('.formulario');
+  formulario.appendChild(alerta);
 }
