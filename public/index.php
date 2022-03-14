@@ -32,6 +32,8 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
 //Area privada
 $router->get('/cita',[CitaController::class, 'index']);
+$router->post('/api/citas',[APIController::class, 'guardar']);
+
 
 // API de citas
 $router->get('/api/servicios', [APIController::class, 'index']);
