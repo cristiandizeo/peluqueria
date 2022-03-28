@@ -13,6 +13,4 @@ foreach ($alertas as $key => $mensajes) :
     endforeach;
 endforeach;
 
-
-
 ?>
