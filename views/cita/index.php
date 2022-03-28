@@ -3,6 +3,8 @@
 
 <div class="barra">
     <p>¡Hola, <strong><?php echo $nombre;?></strong>!</p>
+
+    <a class="boton" href="/logout">Cerrar sesión</a>
 </div>
 <div class="app">
 
@@ -14,7 +16,6 @@
 
     <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
-        <p class="text-center">Elige tus servicios a continuación</p>
         <div id="servicios" class="listado-servicios"></div>
     </div>
     <div id="paso-2" class="seccion">
