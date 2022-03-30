@@ -21,6 +21,6 @@ class AdminCita extends ActiveRecord{
         $this->email = $args['email'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
         $this->servicio = $args['servicio'] ?? '';
-        $this->precio = $args['precio'] ?? '';
-    }
+        $this->precio = $args['precio'] ?? '' ;
+        }
 }
