@@ -148,11 +148,10 @@ class ActiveRecord
     }
     
     // Consulta plana de SQL ()
-    public static function SQL($columna, $valor)
+    public static function SQL($query)
     {
-        $query = "SELECT * FROM " . static::$tabla  . " WHERE ${columna} = '${valor}'";
         $resultado = self::consultarSQL($query);
-        return array_shift($resultado);
+        return $resultado ;
     }
 
     // crea un nuevo registro
