@@ -17,6 +17,13 @@ include_once __DIR__ . '/../templates/barra.php';
         </div>
     </form>
 </div>
+
+<?php
+    if(count($citas) === 0){
+        echo "<h2>No hay citas en esta fecha</h2>";
+    }
+?>
+
 <div class="citas-admin">
     <ul class="citas">
         <?php
@@ -49,3 +56,7 @@ include_once __DIR__ . '/../templates/barra.php';
             ?>
     </ul>
 </div>
+
+<?php
+    $script = "<script src='build/js/buscador.js'></script>"
+?>
