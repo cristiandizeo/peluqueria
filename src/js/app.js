@@ -107,7 +107,6 @@ function paginaSiguiente() {
   });
 }
 const server = window.location.origin;
-console.log(server);
 async function consultarAPI() {
   try {
     const url = `${server}/api/servicios`;
