@@ -106,10 +106,11 @@ function paginaSiguiente() {
     botonesPaginador();
   });
 }
+const server = window.location.origin;
 
 async function consultarAPI() {
   try {
-    const url = "${server}/api/servicios";
+    const url = `${server}/api/servicios`;
     const resultado = await fetch(url);
     const servicios = await resultado.json();
     mostrarServicios(servicios);
@@ -317,7 +318,7 @@ async function reservarCita(){
   // console.log([...datos]); //spread syntax
   try {
     // Peticion hacia la api
-    const url = '${server}/api/citas';
+    const url = `${server}/api/citas`;
   
     const respuesta = await fetch(url, {
       method: 'POST',

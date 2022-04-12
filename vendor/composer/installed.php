@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '434642c2a9581629fae1ad1aa1ab6c0efa96628c',
+        'reference' => 'ef264e787604923b076a7208b9d90f5313ec0eca',
         'name' => 'cdizeo/peluqueria',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '434642c2a9581629fae1ad1aa1ab6c0efa96628c',
+            'reference' => 'ef264e787604923b076a7208b9d90f5313ec0eca',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
